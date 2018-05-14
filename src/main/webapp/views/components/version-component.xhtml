@@ -2,11 +2,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <p:outputPanel>
-        <p:outputLabel>© 2018 ООО Хоум Кредит энд Финанс Банк, v#{versionBean.currentVersion} (<p:commandLink value="История изменений"/>)</p:outputLabel>
+        <p>© 2018 OKBTeam, v#{versionBean.latestVersion} (
+            <p:commandLink value="Changelog" onclick="PF('changelogDialog').show()"/>
+            ) Classifier date #{versionBean.classifierDate}</p>
     </p:outputPanel>
+    <p:dialog widgetVar="changelogDialog" resizable="false" closable="true" closeOnEscape="true"
+              width="600" height="400">
+        <h:form>
+            <p:dataList value="#{versionBean.logs}" var="changelog">
+                <h3>#{changelog.version} from #{changelog.versionDate}</h3>
+                <p>#{changelog.change}</p>
+            </p:dataList>
+        </h:form>
+    </p:dialog>
 </ui:composition>
